@@ -1,27 +1,25 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {v4 as uuid} from 'uuid';
 import ContactListItem from '../components/contactListItem/ContactListItem';
 
-class ContactList extends Component {
-  render() {
-    return (
-      <ul>
-        {this.props.contacts.map(contact => (
-          <ContactListItem
-            name={contact.name}
-            number={contact.number}
-            key={uuid()}
-            deleteContact={() => this.props.deleteContact(contact.id)}
-          />
-        ))}
-      </ul>
-    );
-  }
-}
+const ContactList = ({contacts, deleteContact}) => {
+  return (
+    <ul>
+      {contacts.map(contact => (
+        <ContactListItem
+          name={contact.name}
+          number={contact.number}
+          key={uuid()}
+          deleteContact={() => deleteContact(contact.id)}
+        />
+      ))}
+    </ul>
+  );
+};
 
 ContactList.propTypes = {
-  deleteContact: PropTypes.func,
+  deleteContact: PropTypes.func.isRequired,
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
